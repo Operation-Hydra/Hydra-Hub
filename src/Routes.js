@@ -14,21 +14,21 @@ import { Route, Switch } from 'react-router-dom';
  */
 import {
   SignInPage,
-  SignUpPage,
-  DayPage,
   DashboardPage,
-  UpgradePage
 } from './components/pages';
 
 class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/login" component={SignInPage} />
-        <Route exact path="/day/:date" component={DayPage} />
-        <Route exact path="/join" component={SignUpPage} />
-        <Route exact path="/dashboard" component={DashboardPage} />
-        <Route exact path="/upgrade" component={UpgradePage} />
+        <Route 
+        exact 
+        path="/login" 
+        component={SignInPage} />
+        <Route 
+        exact
+        path="/dashboard" 
+        component={DashboardPage} />
         <Route
           render={function () {
             return <h1>Not Found</h1>;
