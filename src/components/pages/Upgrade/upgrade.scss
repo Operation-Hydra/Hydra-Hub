@@ -1,0 +1,98 @@
+.upgrade{
+    .free-bird {
+        margin-top: -150px;
+    }
+    .pricing-card{
+        text-align: center;
+        .price {
+            position: relative;
+            padding-top: 3.94rem;
+            .number {
+                font-size: 5rem;
+                padding: 1.5rem;
+                font-weight: 300;
+            }
+            .version {
+                box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+                border-radius: .25rem .25rem 0 0;
+                position: absolute;
+                top: 0;
+                width: 100%;
+                padding: 1rem;
+                background-color: rgba(0,0,0,.3);
+            }
+            .number:before {
+                content: "€";
+                position: absolute;
+                font-size: 1.88rem;
+                margin-left: -1.2rem;
+                margin-top: .7rem;
+            }
+            .number:after {
+                content: "/mo";
+                position: absolute;
+                font-size: 1.88rem;
+                margin-top: 3rem;
+            }
+        }
+        .header {
+            box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+        }
+        .striped {
+            padding: 1rem;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+       .striped li {
+            border-bottom: 1px solid rgba(238,238,238,.298039);
+            margin-bottom: 1rem;
+        }
+    }
+
+    /* Current plan highlighter */
+    .card-active{
+        &:before{
+            content: "˅ Current plan ˅";
+            box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+            border-radius: .25rem;
+            padding: 10px;
+            width: 50%;
+            position: absolute;
+            top: -60px;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: bold;
+        }
+    }
+    .active-basic{
+        &:before{
+            color: #155724;
+            background-color: #d4edda;
+            border: 2px #c3e6cb solid;
+        }
+    }
+    .active-personal{
+        &:before{
+            color: #9c27b0;
+            background-color: #d9c1de;
+            border: 2px #cda7d4 solid;
+        }
+    }
+    .active-family{
+        &:before{
+            color: #856404;
+            background-color: #fff3cd;
+            border: 2px #ffeeba solid;
+        }
+    }
+    
+}
+
+/** 
+ * SPDX-License-Identifier: (EUPL-1.2)
+ * Copyright © 2019 Werbeagentur Christian Aichner
+ */
