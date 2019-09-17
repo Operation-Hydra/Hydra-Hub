@@ -94,7 +94,14 @@ class SignIn extends React.Component {
                                                 <MDBIcon icon="shield" />
                                                 </span>
                                             </div>
-                                            <input maxLength="7" id="da" type="text" name="dynamic_access" className="form-control" placeholder="XXXXXXX" aria-label="DA" aria-describedby="basic-addon" />
+                                            <input maxLength="7" 
+                                            id="da" 
+                                            type="text" 
+                                            name="dynamic_access" 
+                                            className="form-control" 
+                                            placeholder="XXXXXXX" 
+                                            aria-label="DA" 
+                                            aria-describedby="basic-addon" />
                                             <div className="invalid-feedback">
                                                 Please enter your DA key.
                                             </div>
