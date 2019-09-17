@@ -23,7 +23,7 @@ import {
     MDBModal,
     MDBModalBody,
     MDBModalHeader,
- } from 'mdbreact';
+} from 'mdbreact';
 
 //> Redux
 // Connect
