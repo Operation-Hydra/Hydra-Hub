@@ -53,15 +53,13 @@ class SignIn extends React.Component {
     }
 
     render() {
-        const { authError, authSuccess, auth } = this.props;
-
-        console.log(this.props);
+        const { authError, authSuccess, auth, userdata } = this.props;
 
         /* Redirect to Dashboard
          * If user is already logged in, redirect to Dashboard
          * This doubles as a neat way to redirect the user directly after login
          */
-        //if(auth.uid !== undefined) return <Redirect to="/dashboard"/> 
+        if(auth.uid !== undefined) return <Redirect to='/dashboard'/>
 
         return (
         <div id="login">
@@ -199,6 +197,7 @@ const mapStateToProps = (state) => {
         authSuccess: state.auth.authSuccess,
         authSuccessLevel: state.auth.authSuccessLevel,
         authErrorDetails: state.auth.authErrorDetails,
+        userdata: state.auth.userdata,
         auth: state.firebase.auth
     }
 }

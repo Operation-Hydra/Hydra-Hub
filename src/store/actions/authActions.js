@@ -17,15 +17,19 @@ export const signIn = (credentials) => {
 
                     // Check if there is an email for the entered DA Key
                     firestore.collection('users')
-                    .doc(da_s)
+                    .where("da", "==", da_s)
                     .get()
-                    .then(doc => {
-                        const data = doc.data();
+                    .then((querySnapshot) => {
+                        let data = undefined;
+                        querySnapshot.forEach(function(doc) {
+                            // doc.data() is never undefined for query doc snapshots
+                            data = doc.data();
+                        });
 
-                        // Check if security key is correct
-                        if(data.sec === sec){
-                             // Check if data is not empty
-                            if(data){
+                        // Check if data is not empty
+                        if(data){
+                             // Check if security key is correct
+                            if(data.sec === sec){
                                 let email = data.email;
 
                                 // Check if password is valid
