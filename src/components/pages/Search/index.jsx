@@ -78,39 +78,23 @@ class Dashboard extends React.Component{
         console.log(profile);
 
         if(profile.isLoaded){
-            return(
-                <div id="dashboard">
-                    
-                </div>
-            );
+            if(profile.level < 1){
+                return(
+                    <p>This feature is not available for visitors.</p>
+                );
+            } else {
+                const clearance = profile.level;
+
+                return(
+                    <div id="search">
+                        
+                    </div>
+                )
+            }
+            
         } else {
-            return (
-                <div id="dashboard">
-                    <MDBEdgeHeader color="green lighten-3" />
-                    <MDBFreeBird>
-                        <MDBRow>
-                            <MDBCol
-                            md="10"
-                            className="mx-auto float-none white z-depth-1 py-2 px-2"
-                            >
-                                <MDBCardBody className="text-center">
-                                <MDBProgress material preloader />
-                                    <MDBAlert color="success">
-                                    <h2 
-                                    className="font-weight-bold"
-                                    >
-                                    Authorized.
-                                    </h2>
-                                    <p className="lead">Your dashboard is being loaded.</p>
-                                    </MDBAlert>
-                                </MDBCardBody>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBFreeBird>
-                </div>
-            )
+            return null;
         }
-        
     }
 }
 
