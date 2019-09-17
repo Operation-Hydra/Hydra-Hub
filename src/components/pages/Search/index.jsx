@@ -6,6 +6,10 @@ import FadeIn from 'react-fade-in';
 // DOM bindings for React Router
 import { Link, Redirect } from 'react-router-dom';
 
+//> Additional
+// Typewriter effect
+import Typing from 'react-typing-animation';
+
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import { 
@@ -86,8 +90,20 @@ class Dashboard extends React.Component{
                 const clearance = profile.level;
 
                 return(
-                    <div id="search">
-                        
+                    <div id="search" className="ubuntu white-text">
+                        <MDBRow>
+                            <MDBCol md="3" className="text-center py-5">
+                                <img className="d-block m-auto img-fluid" src={EagleLogo} alt="Hydra Logo"/>
+                                <h3 className="font-weight-bold">Search Terminal</h3>
+                                <p>Clearance Level { profile.level }</p>
+                            </MDBCol>
+                            <MDBCol md="6">
+                            
+                            </MDBCol>
+                            <MDBCol md="3">
+                            
+                            </MDBCol>
+                        </MDBRow>
                     </div>
                 )
             }
