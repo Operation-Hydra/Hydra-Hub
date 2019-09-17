@@ -1,20 +1,98 @@
 export const signIn = (credentials) => {
-    return (dispatch, getState, {getFirebase}) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
+        const firestore = getFirestore();
 
-        firebase.auth().signInWithEmailAndPassword(
-            credentials.email,
-            credentials.password
-        ).then(() => {
-            dispatch({
-                type: 'LOGIN_SUCCESS'
-            })
-        }).catch((err) => {
+        let sec_s = credentials.secure_key;
+        let password = credentials.password;
+        let da_s = credentials.dynamic_access;
+
+        if(sec_s && password && da_s){
+            if(sec_s.trim().length === 3 && da_s.trim().length === 7 && password.trim() !== ""){
+
+                let sec = parseInt(sec_s, 10);
+                let da = parseInt(da_s, 10);
+
+                if(Number.isInteger(sec) && Number.isInteger(da)){
+
+                    // Check if there is an email for the entered DA Key
+                    firestore.collection('users')
+                    .doc(da_s)
+                    .get()
+                    .then(doc => {
+                        const data = doc.data();
+
+                        // Check if security key is correct
+                        if(data.sec === sec){
+                             // Check if data is not empty
+                            if(data){
+                                let email = data.email;
+
+                                // Check if password is valid
+                                firebase.auth().signInWithEmailAndPassword(
+                                    email,
+                                    password
+                                ).then(() => {
+                                    dispatch({
+                                        type: 'LOGIN_SUCCESS',
+                                        level: data.level
+                                    });
+                                }).catch((err) => {
+                                    dispatch({
+                                        type: 'LOGIN_ERROR',
+                                        code: 1,
+                                        err: 'You must provide valid credentials.',
+                                        errDetails: err
+                                    });
+                                });
+                            } else {
+                                dispatch({
+                                    type: 'LOGIN_ERROR',
+                                    code: 2,
+                                    err: 'You must provide valid credentials.',
+                                    errDetails: undefined
+                                });
+                            }
+                        } else {
+                            dispatch({
+                            type: 'LOGIN_ERROR',
+                            code: 3,
+                            err: 'You must provide valid credentials.',
+                            errDetails: undefined
+                        });
+                        }
+                    }).catch((err) => {
+                        dispatch({
+                            type: 'LOGIN_ERROR',
+                            code: 4,
+                            err: 'The service is currently not available due to technical difficulties.',
+                            errDetails: err
+                        });
+                    });
+                } else {
+                    dispatch({
+                        type: 'LOGIN_ERROR',
+                        code: 5,
+                        err: 'You must provide valid credentials.',
+                        errDetails: undefined
+                    });
+                }
+            } else {
+                dispatch({
+                    type: 'LOGIN_ERROR',
+                    code: 6,
+                    err: 'You must provide valid credentials.',
+                    errDetails: undefined
+                });
+            }
+        } else {
             dispatch({
                 type: 'LOGIN_ERROR',
-                err
-            })
-        });
+                code: 7,
+                err: 'You must provide valid credentials.',
+                errDetails: undefined
+            });
+        }
     }
 }
 
@@ -58,7 +136,7 @@ export const signUp = (newUser) => {
                 type: 'SIGNUP_SUCCESS'
             })
         }).catch((err) => {
-             dispatch({
+            dispatch({
                 type: 'SIGNUP_ERROR',
                 err
             })

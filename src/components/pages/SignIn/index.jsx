@@ -21,6 +21,7 @@ import {
     MDBBtn,
     MDBAlert,
     MDBIcon,
+    MDBSpinner,
 } from "mdbreact";
 
 //> Images
@@ -33,14 +34,13 @@ import './signin.scss';
 class SignIn extends React.Component {
 
     state = {
-        email: "",
         password: "",
         dynamic_access: "",
         secure_key: "",
     }
 
     handleChange = (e) => {
-        this.setState({[e.target.type]: e.target.value})
+        this.setState({[e.target.name]: e.target.value})
     }
 
     handleSubmit = (e) => {
@@ -53,9 +53,9 @@ class SignIn extends React.Component {
     }
 
     render() {
-        const { authError, auth } = this.props;
+        const { authError, authSuccess, auth } = this.props;
 
-        console.log(this.state);
+        console.log(this.props);
 
         /* Redirect to Dashboard
          * If user is already logged in, redirect to Dashboard
@@ -80,8 +80,14 @@ class SignIn extends React.Component {
                                         <h3 className="text-center mb-4 font-weight-bold">HYDRA Secure Access</h3>
                                         {
                                             authError && 
-                                                <MDBAlert color="danger" >
+                                                <MDBAlert color="danger" className="text-center" >
                                                     {authError}
+                                                </MDBAlert>
+                                        }
+                                        {
+                                            authSuccess && 
+                                                <MDBAlert color="success" className="text-center" >
+                                                    Level {this.props.authSuccessLevel} access granted.
                                                 </MDBAlert>
                                         }
                                         
@@ -91,17 +97,21 @@ class SignIn extends React.Component {
                                         <div className="input-group">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text" id="basic-addon">
-                                                <MDBIcon icon="shield" />
+                                                <MDBIcon icon="shield-alt" />
                                                 </span>
                                             </div>
-                                            <input maxLength="7" 
+                                            <input 
+                                            maxLength="7" 
+                                            onChange={this.handleChange}
+                                            value={this.state.dynamic_access}
                                             id="da" 
                                             type="text" 
                                             name="dynamic_access" 
                                             className="form-control" 
                                             placeholder="XXXXXXX" 
                                             aria-label="DA" 
-                                            aria-describedby="basic-addon" />
+                                            aria-describedby="basic-addon" 
+                                            />
                                             <div className="invalid-feedback">
                                                 Please enter your DA key.
                                             </div>
@@ -110,7 +120,7 @@ class SignIn extends React.Component {
                                         <br />
                                         
                                         <MDBRow>
-                                            <MDBCol md="6">
+                                            <MDBCol md="5">
                                                 <label htmlFor="sec" className="grey-text">
                                                 SEC Key
                                                 </label>
@@ -120,13 +130,25 @@ class SignIn extends React.Component {
                                                         <MDBIcon icon="key" />
                                                         </span>
                                                     </div>
-                                                    <input id="sc" minLength="3" maxLength="3" type="password" name="secure_key" className="form-control" placeholder="XXX" aria-label="DA" aria-describedby="basic-addon" />
+                                                    <input 
+                                                    id="sc"
+                                                    minLength="3"
+                                                    maxLength="3"
+                                                    onChange={this.handleChange}
+                                                    value={this.state.secure_key}
+                                                    type="password"
+                                                    name="secure_key"
+                                                    className="form-control"
+                                                    placeholder="XXX"
+                                                    aria-label="DA"
+                                                    aria-describedby="basic-addon"
+                                                    />
                                                     <div className="invalid-feedback">
                                                         Please enter your secure key.
                                                     </div>
                                                 </div>
                                             </MDBCol>
-                                             <MDBCol md="6">
+                                            <MDBCol md="7">
                                                 <label htmlFor="psw" className="grey-text">
                                                 Password
                                                 </label>
@@ -136,7 +158,17 @@ class SignIn extends React.Component {
                                                         <MDBIcon icon="lock" />
                                                         </span>
                                                     </div>
-                                                    <input maxLength="30" id="psw" type="password" name="password" className="form-control" aria-label="DA" aria-describedby="basic-addon" />
+                                                    <input
+                                                    maxLength="30"
+                                                    id="psw"
+                                                    type="password"
+                                                    name="password"
+                                                    onChange={this.handleChange}
+                                                    value={this.state.password}
+                                                    className="form-control"
+                                                    aria-label="DA"
+                                                    aria-describedby="basic-addon"
+                                                    />
                                                     <div className="invalid-feedback">
                                                         Please enter your password.
                                                     </div>
@@ -144,6 +176,7 @@ class SignIn extends React.Component {
                                             </MDBCol>
                                         </MDBRow>
 
+                                        {  }
                                         <div className="text-center mt-4">
                                             <MDBBtn color="danger" type="submit"><i className="fas fa-key pr-2"></i>Login</MDBBtn>
                                         </div>
@@ -163,6 +196,8 @@ class SignIn extends React.Component {
 const mapStateToProps = (state) => {
     return {
         authError: state.auth.authError,
+        authSuccess: state.auth.authSuccess,
+        authSuccessLevel: state.auth.authSuccessLevel,
         authErrorDetails: state.auth.authErrorDetails,
         auth: state.firebase.auth
     }
