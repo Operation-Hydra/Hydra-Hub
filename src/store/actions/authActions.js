@@ -17,7 +17,7 @@ export const signIn = (credentials) => {
 
                     // Check if there is an email for the entered DA Key
                     firestore.collection('users')
-                    .where("da", "==", da_s)
+                    .where("da", "==", da)
                     .get()
                     .then((querySnapshot) => {
                         let data = undefined;
@@ -25,7 +25,6 @@ export const signIn = (credentials) => {
                             // doc.data() is never undefined for query doc snapshots
                             data = doc.data();
                         });
-
                         // Check if data is not empty
                         if(data){
                              // Check if security key is correct
