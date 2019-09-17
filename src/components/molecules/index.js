@@ -2,10 +2,14 @@
 // Import all components to export them for easy access from parent components
 import Footer from './Footer';
 import Nav from './Nav';
+import WorldMap from './WorldMap';
+import AustriaMap from './AustriaMap';
 
 export {
     Footer,
     Nav,
+    WorldMap,
+    AustriaMap,
 }
 
 /** 

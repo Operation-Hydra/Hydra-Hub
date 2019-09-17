@@ -4,12 +4,14 @@ import React from 'react';
 // Animations
 import FadeIn from 'react-fade-in';
 // DOM bindings for React Router
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import { 
     MDBContainer,
+    MDBRow,
+    MDBCol,
     MDBNavLink,
     MDBIcon,
     MDBNavItem,
@@ -23,6 +25,8 @@ import {
     MDBModal,
     MDBModalBody,
     MDBModalHeader,
+    MDBCard,
+    MDBCardBody,
 } from 'mdbreact';
 
 //> Redux
@@ -30,15 +34,24 @@ import {
 import { connect } from 'react-redux';
 // Compose
 import { compose } from 'redux';
+// Actions
+import { signOut } from '../../../store/actions/authActions';
 
 //> Firestore
 import { firestoreConnect } from 'react-redux-firebase';
 
 //> Components
-// To be added
+import {
+    WorldMap,
+    AustriaMap,
+} from '../../molecules';
 
 //> Images
-// To be added
+// logo
+import EagleLogo from '../../../assets/logo/op_hydra_eagle.png';
+
+//> CSS
+import './dashboard.scss';
 
 class Dashboard extends React.Component{
     constructor(props) {
@@ -57,14 +70,96 @@ class Dashboard extends React.Component{
          */
         if(!auth.uid) return <Redirect to="/login"/>
 
+        console.log(profile);
+
         return(
-            null
+            <div id="dashboard">
+                <MDBContainer className="py-5 ubuntu">
+                    <MDBCard>
+                        <MDBCardBody className="text-center">
+                        <img className="d-block m-auto img-fluid" src={EagleLogo} alt="Hydra Logo"/>
+                            { profile.sex === "m" ? (
+                                <h3>Welcome to work, Mr. { profile.last_name }</h3>
+                            ) : (
+                                <>
+                                { profile.relationship ? (
+                                    <h3>Welcome to work, Mrs. { profile.last_name }</h3> 
+                                ) : (
+                                    <h3>Welcome to work, Ms. { profile.last_name }</h3> 
+                                )}
+                                </>
+                            )}
+                            <p>Your work is important. It helps making the world a better and safer place for everyone.</p>
+                            <MDBRow>
+                                <MDBCol md="6" className="text-left">
+                                    <Link
+                                    to="/search"
+                                    >
+                                        <MDBBtn 
+                                        color="elegant"
+                                        >
+                                        <MDBIcon icon="terminal" className="pr-2" />
+                                        Terminal
+                                        </MDBBtn>
+                                    </Link>
+                                </MDBCol>
+                                <MDBCol md="6" className="text-right">
+                                    <MDBBtn 
+                                    color="danger"
+                                    onClick={this.props.signOut}
+                                    >
+                                    Sign out
+                                    <MDBIcon icon="sign-out-alt" className="pl-2" />
+                                    </MDBBtn>
+                                </MDBCol>
+                            </MDBRow>
+                            
+                        </MDBCardBody>
+                    </MDBCard>
+                    { profile.level > 8 &&
+                        <MDBRow className="flex-center">
+                            <MDBCol md="6">
+                                <MDBCard className="my-5 text-center">
+                                    <MDBCardBody>
+                                        <h4 className="font-weight-bold">Project I.N.S.I.G.H.T.</h4>
+                                        <p>View live targets of Project I.N.S.I.G.H.T.</p>
+                                        <WorldMap/>
+                                        {profile.level === 10 &&
+                                            <Link
+                                            to="/zoola/list"
+                                            >
+                                                <MDBBtn 
+                                                size="md" 
+                                                color="elegant"
+                                                outline
+                                                >
+                                                <MDBIcon icon="list" className="pr-2" />
+                                                Target List
+                                                </MDBBtn>
+                                            </Link>
+                                        }
+                                    </MDBCardBody>
+                                </MDBCard>
+                            </MDBCol>
+                            <MDBCol md="6">
+                                <MDBCard className="my-5 text-center">
+                                    <MDBCardBody>
+                                        <h4 className="font-weight-bold">Active agents in Austria</h4>
+                                        <AustriaMap/>
+                                    </MDBCardBody>
+                                </MDBCard>
+                            </MDBCol>
+                        </MDBRow>
+                    }
+                </MDBContainer>
+                <div className="intro"></div>
+            </div>
         );
-        
     }
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
         records: state.firestore.ordered.records,
         tabs: state.firestore.ordered.tabs,
@@ -73,14 +168,13 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default compose(
-    connect(mapStateToProps),
-    firestoreConnect([
-        {
-            collection: 'records'
-        }
-    ])
-)(Dashboard);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signOut: () => dispatch(signOut())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
 
 /** 
  * SPDX-License-Identifier: (EUPL-1.2)
