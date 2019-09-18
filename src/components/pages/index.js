@@ -1,17 +1,13 @@
 //> Components
 // Import all components to export them for easy access from parent components
 import DashboardPage from './Dashboard';
-import DayPage from './Day';
 import SignInPage from './SignIn';
-import SignUpPage from './SignUp';
-import UpgradePage from './Upgrade';
+import SearchPage from './Search';
 
 export {
     DashboardPage,
-    DayPage,
     SignInPage,
-    SignUpPage,
-    UpgradePage
+    SearchPage,
 }
 
 /** 

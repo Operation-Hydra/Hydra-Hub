@@ -20,17 +20,27 @@ import {
     MDBCardBody,
     MDBBtn,
     MDBAlert,
+    MDBIcon,
+    MDBSpinner,
 } from "mdbreact";
+
+//> Images
+// logo
+import EagleLogo from '../../../assets/logo/op_hydra_eagle.png';
+
+//> CSS
+import './signin.scss';
 
 class SignIn extends React.Component {
 
     state = {
-        email: "",
-        password: ""
+        password: "",
+        dynamic_access: "",
+        secure_key: "",
     }
 
     handleChange = (e) => {
-        this.setState({[e.target.type]: e.target.value})
+        this.setState({[e.target.name]: e.target.value})
     }
 
     handleSubmit = (e) => {
@@ -43,16 +53,16 @@ class SignIn extends React.Component {
     }
 
     render() {
-        const { authError, auth } = this.props;
+        const { authError, authSuccess, auth, userdata } = this.props;
 
-         /* Redirect to Dashboard
+        /* Redirect to Dashboard
          * If user is already logged in, redirect to Dashboard
          * This doubles as a neat way to redirect the user directly after login
          */
-        if(auth.uid !== undefined) return <Redirect to="/dashboard"/> 
+        if(auth.uid !== undefined) return <Redirect to='/dashboard'/>
 
         return (
-        <div>
+        <div id="login">
             <MDBEdgeHeader color="green lighten-3" />
             <MDBFreeBird>
                 <MDBRow>
@@ -61,48 +71,122 @@ class SignIn extends React.Component {
                     className="mx-auto float-none white z-depth-1 py-2 px-2"
                     >
                         <MDBCardBody>
-                            <MDBRow className="justify-content-center">
+                            <MDBRow className="justify-content-center ubuntu">
                                 <MDBCol md="6">
                                     <form onSubmit={this.handleSubmit} className="needs-validation" noValidate>
-                                        <p className="h4 text-center mb-4">Sign in</p>
+                                        <img className="d-block m-auto img-fluid" src={EagleLogo} alt="Hydra Logo"/>
+                                        <h3 className="text-center mb-4 font-weight-bold">HYDRA Secure Access</h3>
                                         {
                                             authError && 
-                                                <MDBAlert color="danger" >
+                                                <MDBAlert color="danger" className="text-center" >
                                                     {authError}
                                                 </MDBAlert>
                                         }
+                                        {
+                                            authSuccess && 
+                                                <MDBAlert color="success" className="text-center" >
+                                                    Level {this.props.authSuccessLevel} access granted.
+                                                </MDBAlert>
+                                        }
                                         
-                                        <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
-                                        Your email
+                                        <label htmlFor="da" className="grey-text">
+                                        DA Access Key
                                         </label>
-                                        <input
-                                        type="email"
-                                        id="defaultFormLoginEmailEx"
-                                        className="form-control"
-                                        onChange={this.handleChange}
-                                        required
-                                        />
-                                        <div className="invalid-feedback">
-                                            Please enter an E-Mail
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text" id="basic-addon">
+                                                <MDBIcon icon="shield-alt" />
+                                                </span>
+                                            </div>
+                                            <input 
+                                            maxLength="7" 
+                                            onChange={this.handleChange}
+                                            value={this.state.dynamic_access}
+                                            id="da" 
+                                            type="text" 
+                                            name="dynamic_access" 
+                                            className="form-control" 
+                                            placeholder="XXXXXXX" 
+                                            aria-label="DA" 
+                                            aria-describedby="basic-addon" 
+                                            />
+                                            <div className="invalid-feedback">
+                                                Please enter your DA key.
+                                            </div>
                                         </div>
+                                        
                                         <br />
-                                        <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
-                                        Your password
-                                        </label>
-                                        <input
-                                        type="password"
-                                        id="defaultFormLoginPasswordEx"
-                                        className="form-control"
-                                        onChange={this.handleChange}
-                                        required
-                                        />
-                                        <div className="invalid-feedback">
-                                            Please enter a password
-                                        </div>
+                                        
+                                        <MDBRow>
+                                            <MDBCol md="5">
+                                                <label htmlFor="sec" className="grey-text">
+                                                SEC Key
+                                                </label>
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text" id="basic-addon">
+                                                        <MDBIcon icon="key" />
+                                                        </span>
+                                                    </div>
+                                                    <input 
+                                                    id="sc"
+                                                    minLength="3"
+                                                    maxLength="3"
+                                                    onChange={this.handleChange}
+                                                    value={this.state.secure_key}
+                                                    type="password"
+                                                    name="secure_key"
+                                                    className="form-control"
+                                                    placeholder="XXX"
+                                                    aria-label="DA"
+                                                    aria-describedby="basic-addon"
+                                                    />
+                                                    <div className="invalid-feedback">
+                                                        Please enter your secure key.
+                                                    </div>
+                                                </div>
+                                            </MDBCol>
+                                            <MDBCol md="7">
+                                                <label htmlFor="psw" className="grey-text">
+                                                Password
+                                                </label>
+                                                <div className="input-group">
+                                                    <div className="input-group-prepend">
+                                                        <span className="input-group-text" id="basic-addon">
+                                                        <MDBIcon icon="lock" />
+                                                        </span>
+                                                    </div>
+                                                    <input
+                                                    maxLength="30"
+                                                    id="psw"
+                                                    type="password"
+                                                    name="password"
+                                                    onChange={this.handleChange}
+                                                    value={this.state.password}
+                                                    className="form-control"
+                                                    aria-label="DA"
+                                                    aria-describedby="basic-addon"
+                                                    />
+                                                    <div className="invalid-feedback">
+                                                        Please enter your password.
+                                                    </div>
+                                                </div>
+                                            </MDBCol>
+                                        </MDBRow>
+
+                                        {  }
                                         <div className="text-center mt-4">
-                                            <MDBBtn color="success" type="submit"><i className="fas fa-key pr-2"></i>Login</MDBBtn>
+                                            <MDBBtn 
+                                            color="danger"
+                                            type="submit"
+                                            ><i className="fas fa-key pr-2"></i>Login
+                                            </MDBBtn>
                                         </div>
-                                        <p className="text-muted text-center mt-3">Not a member yet? No problem, just <Link to="/join"><strong>join us</strong></Link>!</p>
+                                        <p 
+                                        className="text-muted text-center mt-3"
+                                        >
+                                        No access? <Link to="/join"><strong>Join</strong></Link> HYDRA now!
+                                        </p>
                                     </form>
                                 </MDBCol>
                             </MDBRow>
@@ -118,7 +202,10 @@ class SignIn extends React.Component {
 const mapStateToProps = (state) => {
     return {
         authError: state.auth.authError,
+        authSuccess: state.auth.authSuccess,
+        authSuccessLevel: state.auth.authSuccessLevel,
         authErrorDetails: state.auth.authErrorDetails,
+        userdata: state.auth.userdata,
         auth: state.firebase.auth
     }
 }

@@ -1,8 +1,6 @@
-.flyout {
-	display:flex;
-	flex-direction: column;
-	min-height:100vh;
-	justify-content: space-between;
+html, body, #root, main {
+	height: 100%;
+	width: 100%;
 }
 
 .home-feature-box .fa {
@@ -17,7 +15,7 @@
 }
 
 .example-components-list li > a {
-  color: #495057;
+	color: #495057;
 }
 
 .example-components-list li:last-child > a {
