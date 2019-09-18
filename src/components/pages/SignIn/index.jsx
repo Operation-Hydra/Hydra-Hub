@@ -176,9 +176,17 @@ class SignIn extends React.Component {
 
                                         {  }
                                         <div className="text-center mt-4">
-                                            <MDBBtn color="danger" type="submit"><i className="fas fa-key pr-2"></i>Login</MDBBtn>
+                                            <MDBBtn 
+                                            color="danger"
+                                            type="submit"
+                                            ><i className="fas fa-key pr-2"></i>Login
+                                            </MDBBtn>
                                         </div>
-                                        <p className="text-muted text-center mt-3">No access? <Link to="/join"><strong>Join</strong></Link> HYDRA now!</p>
+                                        <p 
+                                        className="text-muted text-center mt-3"
+                                        >
+                                        No access? <Link to="/join"><strong>Join</strong></Link> HYDRA now!
+                                        </p>
                                     </form>
                                 </MDBCol>
                             </MDBRow>
