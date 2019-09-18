@@ -2,6 +2,49 @@
     width: 100%;
     height: 100%;
     background: black;
+    .code{
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        span{
+            background-color: white;
+            color: black;
+        }
+    }
+
+    .mid{
+        background-image: url('../../../assets/bg/grid.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        box-shadow: inset 0px 0px 0px 3px #D1F8FF;
+        padding: 30px !important;
+
+        .searchbox{
+            .title{
+                font-size: 2em;
+                font-weight: 900;
+                letter-spacing: 4px;
+                text-transform: uppercase;
+            }
+        }
+        
+        .console-border{
+            min-height: 100%;
+            height: auto;
+            position: absolute;
+            width: 20px;
+            background-image: url('../../../assets/bg/search_inner.png');
+            background-repeat: repeat-y;
+            opacity: .7;
+        }
+        .console-border-left {
+            left: 0;
+        }
+        .console-border-right {
+            right: 0;
+        }
+    }
 }
 
 /** 

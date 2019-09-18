@@ -91,17 +91,41 @@ class Dashboard extends React.Component{
 
                 return(
                     <div id="search" className="ubuntu white-text">
-                        <MDBRow>
+                        <MDBRow className="w-100 h-100">
                             <MDBCol md="3" className="text-center py-5">
                                 <img className="d-block m-auto img-fluid" src={EagleLogo} alt="Hydra Logo"/>
                                 <h3 className="font-weight-bold">Search Terminal</h3>
                                 <p>Clearance Level { profile.level }</p>
                             </MDBCol>
-                            <MDBCol md="6">
-                            
+                            <MDBCol md="6" className="mid">
+                                <div className="console-border console-border-left"></div>
+                                <div className="console-border console-border-right"></div>
+                                <div className="searchbox">
+                                    <Typing speed={0} hideCursor={true}>
+                                        <p className="title">DET [CONNECT] IDENT LOOKUP ></p>
+                                    </Typing>
+                                </div>
                             </MDBCol>
                             <MDBCol md="3">
-                            
+                                <Typing speed={0} hideCursor={true}>
+                                    <p className="code my-3">
+                                        INIT DB WRT300N_HYDRA:<span>LINUX</span><br/>
+                                        >>>><br/>
+                                        REQUIRE[AUTHENTICION].IMMINANT -> EXECUTE SEARCH PROTOCOL 
+                                        <span>OCTA-9-FIVE</span>.<br/><br/>
+                                        INCLUDE(INSIGHT).IMMINANT -> EXECUTE INSIGHT PROTOCOL 
+                                        <span>TETRA-9-ALPHA</span> <br/>
+                                        SECURITY LEVEL ACCEPTED. INSIGHT ALGORITHM REQUIRED.<br/><br/>
+                                        REQUIRE_ONCE<span>(INSIGHT["ZOOLA"])</span> -> EXECUTE TABLE INSIGHT 
+                                        WHERE <span>FA_MEMBERS</span> = <span>?</span>
+                                        <br/>
+                                        LOADING INSIGHT..............<br/>
+                                        INSIGHT ALGORYTHM INSTALLED.<br/><br/>
+                                        CLIENT IP: <span>212.152.179.113</span><br/>
+                                        ALL RESOURCES LOADED.<br/>
+                                        HYDRA PROTOCOL READY FOR USAGE.
+                                    </p>
+                                </Typing>
                             </MDBCol>
                         </MDBRow>
                     </div>
