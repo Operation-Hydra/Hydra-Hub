@@ -6,36 +6,12 @@ import FadeIn from 'react-fade-in';
 // DOM bindings for React Router
 import { Link, Redirect } from 'react-router-dom';
 
-//> Additional
-// Typewriter effect
-import Typing from 'react-typing-animation';
-
 //> MDB
 // "Material Design for Bootstrap" is a great UI design framework
 import { 
-    MDBContainer,
-    MDBEdgeHeader,
-    MDBFreeBird,
     MDBRow,
     MDBCol,
-    MDBNavLink,
-    MDBIcon,
-    MDBNavItem,
-    MDBTabContent,
-    MDBNav,
-    MDBAlert,
-    MDBBadge,
-    MDBBtn,
-    MDBPopover,
-    MDBPopoverBody,
-    MDBPopoverHeader,
-    MDBModal,
-    MDBModalBody,
-    MDBModalHeader,
-    MDBCard,
-    MDBCardBody,
     MDBSpinner,
-    MDBProgress,
 } from 'mdbreact';
 
 //> Redux
@@ -43,17 +19,9 @@ import {
 import { connect } from 'react-redux';
 // Compose
 import { compose } from 'redux';
-// Actions
-import { signOut } from '../../../store/actions/authActions';
 
 //> Firestore
 import { firestoreConnect } from 'react-redux-firebase';
-
-//> Components
-import {
-    WorldMap,
-    AustriaMap,
-} from '../../molecules';
 
 //> Images
 // logo
@@ -79,8 +47,6 @@ class Dashboard extends React.Component{
          */
         if(!auth.uid) return <Redirect to="/login"/>
 
-        console.log(profile);
-
         if(profile.isLoaded){
             if(profile.level < 1){
                 return(
@@ -101,31 +67,11 @@ class Dashboard extends React.Component{
                                 <div className="console-border console-border-left"></div>
                                 <div className="console-border console-border-right"></div>
                                 <div className="searchbox">
-                                    <Typing speed={0} hideCursor={true}>
-                                        <p className="title">DET [CONNECT] IDENT LOOKUP ></p>
-                                    </Typing>
+                                    
                                 </div>
                             </MDBCol>
                             <MDBCol md="3">
-                                <Typing speed={0} hideCursor={true}>
-                                    <p className="code my-3">
-                                        INIT DB WRT300N_HYDRA:<span>LINUX</span><br/>
-                                        >>>><br/>
-                                        REQUIRE[AUTHENTICION].IMMINANT -> EXECUTE SEARCH PROTOCOL 
-                                        <span>OCTA-9-FIVE</span>.<br/><br/>
-                                        INCLUDE(INSIGHT).IMMINANT -> EXECUTE INSIGHT PROTOCOL 
-                                        <span>TETRA-9-ALPHA</span> <br/>
-                                        SECURITY LEVEL ACCEPTED. INSIGHT ALGORITHM REQUIRED.<br/><br/>
-                                        REQUIRE_ONCE<span>(INSIGHT["ZOOLA"])</span> -> EXECUTE TABLE INSIGHT 
-                                        WHERE <span>FA_MEMBERS</span> = <span>?</span>
-                                        <br/>
-                                        LOADING INSIGHT..............<br/>
-                                        INSIGHT ALGORYTHM INSTALLED.<br/><br/>
-                                        CLIENT IP: <span>212.152.179.113</span><br/>
-                                        ALL RESOURCES LOADED.<br/>
-                                        HYDRA PROTOCOL READY FOR USAGE.
-                                    </p>
-                                </Typing>
+                                
                             </MDBCol>
                         </MDBRow>
                     </div>
@@ -133,7 +79,11 @@ class Dashboard extends React.Component{
             }
             
         } else {
-            return null;
+            return (
+                <div className="w-100 flex-center">
+                    <MDBSpinner />
+                </div>
+            );
         }
     }
 }
@@ -141,20 +91,12 @@ class Dashboard extends React.Component{
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        records: state.firestore.ordered.records,
-        tabs: state.firestore.ordered.tabs,
         auth: state.firebase.auth,
         profile: state.firebase.profile,
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signOut: () => dispatch(signOut())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
 
 /** 
  * SPDX-License-Identifier: (EUPL-1.2)
