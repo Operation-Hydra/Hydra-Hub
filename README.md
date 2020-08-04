@@ -1,13 +1,13 @@
 <p align="center">
   <a href="https://www.aichner-christian.com/" target="_blank" rel="noopener noreferrer">
-    <img src="https://www.aichner-christian.com/img/logo/hydra_sm.png" alt="Agency Logo" height="150">
+    <img src="https://www.aichnerc.at/img/logo/hydra_sm.png" alt="Agency Logo" height="120">
   </a>
 </p>
 
 <h3 align="center">Where HYDRA agents connect.</h3>
 
 <p align="center">
-  This is the official homepage of "Operation Hydra". A nickname for the hosting and deployment department of the Advertisement Agency Christian Aichner.
+  Agents of S.H.I.E.L.D. Hydra inspired platform.
   <br>
   <br>
   <a href="https://github.com/Operation-Hydra/Hydra-Hub/issues/new?template=bug_report.md">Report bug</a>
